@@ -46,12 +46,12 @@ This example uses [the Official Dropbox API V2 SDK for Javascript](https://githu
 
 ## Learn More 📚
 
-### [Dropbox API Explorer](https://dropbox.github.io/dropbox-api-v2-explorer)
+- [**Dropbox API Explorer**](https://dropbox.github.io/dropbox-api-v2-explorer)
 
-- [search_v2Switch](https://dropbox.github.io/dropbox-api-v2-explorer/#files_search_v2) - \[ [Docs](https://www.dropbox.com/developers/documentation/http/documentation#files-search) \]
-- [move_batch_v2](https://dropbox.github.io/dropbox-api-v2-explorer/#files_move_batch_v2) - \[ [Docs](https://www.dropbox.com/developers/documentation/http/documentation#files-move_batch) \]
+  - [search_v2Switch](https://dropbox.github.io/dropbox-api-v2-explorer/#files_search_v2) - \[ [Docs](https://www.dropbox.com/developers/documentation/http/documentation#files-search) \]
+  - [move_batch_v2](https://dropbox.github.io/dropbox-api-v2-explorer/#files_move_batch_v2) - \[ [Docs](https://www.dropbox.com/developers/documentation/http/documentation#files-move_batch) \]
 
----
+- [Search Files Using the Dropbox API - Dropbox](https://dropbox.tech/developers/search-files-using-the-dropbox-api)
 
 ## Like my stuff?
 
