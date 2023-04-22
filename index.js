@@ -1,10 +1,11 @@
 require('dotenv').config()
 
+const path = require('path');
 const prompt = require('prompt');
 const { Dropbox } = require('dropbox'); // eslint-disable-line import/no-unresolved
 
 // User-defined Parameters
-const searchQurey = '.PNG .JPG .TIFF'; // String
+const searchQurey = '.jpg'; // String
 const searchOptions = {
   'file_status': 'active', // String ('active' or 'deleted', defaults to 'active')
   'filename_only': true, // Boolean
@@ -18,10 +19,10 @@ const searchOptions = {
 const renameRules = [
   {
     pattern: /.JPG/, // regular expression
-    newString: '.jpg' // String
+    newString: '.JPG.jpg' // String
   }, {
     pattern: /.PNG/,  // regular expression
-    newString: '.png' // String
+    newString: '.PNG.png' // String
   }
 ]
 
@@ -32,31 +33,134 @@ const dbx = new Dropbox({ accessToken: process.env.ACCESS_TOKEN });
 
 dbx.filesSearchV2({ 'query': searchQurey, 'options': searchOptions })
   .then((response) => {
-    const matches = response.result.matches;
-    renameFiles(matches);
+    processResponse(response);
   })
   .catch((err) => {
     console.log(err);
   });
 
-function renameFiles(files) {
-  const entries = files.map(file => {
-    const filename = file.metadata.metadata.name;
-    let newFileName = filename;
+/**
+ * @param {Object} response - JSON response from the Search and SearchContinue V2 APIs
+ */
+function processResponse(response) {
+  const json = response.result;
+  // List the items to be renamed
+  const listing = filterMatches(json.matches);
+  // Rename the items in the list
+  renameFiles(listing);
+  
+  // Check if there is next page
+  if (json.has_more) {
+    // Fetches the next page of search results
+    dbx.filesSearchContinueV2({ "cursor": json.cursor })
+      .then((nextPage) => {
+        processResponse(nextPage);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+}
+
+/**
+ * Apply the renaming rules to the search results and find out if any items need to be renamed
+ * @param {Object} The `matches` from the search results
+ * @returns {Object} List of the old and new path of the items to be renamed
+ */
+function filterMatches(items) {
+  return items.map((item) => {
+    // Extract the name and path from each search result
+    const name = item.metadata.metadata.name;
+    const path = item.metadata.metadata.path_display;
+
+    // Generate the new name and new path
+    let newName = name;
     renameRules.forEach(rule => {
-      newFileName = newFileName.replace(rule.pattern, rule.newString);
+      newName = newName.replace(rule.pattern, rule.newString);
     })
-    const oldPath = file.metadata.metadata.path_display;
-    const newPath = oldPath.replace(filename, newFileName);
-    if (newFileName !== filename) {
-      return {
-        from_path: oldPath,
-        to_path: newPath
-      }
-    };
-  }).filter(x => x);
-  dbx.filesMoveBatchV2({ entries: entries} )
-    .then((response) => {
-      JSON.stringify(response);
-    })
+    const newPath = path.replace(name, newName);
+
+    return { from_path: path, to_path: newPath };
+  })
+    // filter and return only the items need to be renamed by checking if any case insensitive changes
+    .filter(x => x.from_path.lower() !== x.to_path.lower());
+}
+
+/**
+ * Rename the items by calling the MoveBatch V2 API
+ * @param [Object] List of renaming items
+ */
+function renameFiles(items) {
+  if (items.length > 0) {
+    // Submit a job
+    dbx.filesMoveBatchV2({ 'entries': items })
+      .then((response) => {
+        // Output the job status when checkProgress() returns a fulfilled Promise
+        console.log('\nStart to rename the following queries:');
+        checkProgress(response.result.async_job_id, items)
+          .then((result) => {
+            console.log(''); // Output an empty line
+            result.entries.forEach((e, i) => {
+              if (e['.tag'] === 'success') {
+                // Output a success message with the updated pathname
+                console.log(`Successfully renamed the ${e.success['.tag']} "${path.dirname(e.success.path_display)}/${e.success.name}"`);
+              } else if (e['.tag'] === 'failure') {
+                // Output a failure message with the original pathname
+                console.log(`Failed to rename "${items[i].from_path}".`);
+              } else {
+                // Output an error message from the JSON response if got something other than a success or failure
+                console.error('Unknown status: ' + JSON.stringify(e));
+              }
+            })            
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+}
+
+/**
+ * Returns a promise that resolves when the MoveBatchCheck V2 API returns a response with a complete tag
+ * @param {String} jobId - Job ID returned from the MoveBatch V2 API
+ * @param {Object} items - List of renaming items
+ * @returns 
+ */
+function checkProgress(jobId, items) {
+  // Output the path, current name and new name of each renaming item
+  items.forEach((entry) => {
+    console.log(`\npath: ${path.dirname(entry.from_path)}`)
+    console.log(`"${path.basename(entry.from_path)}" --> "${path.basename(entry.to_path)}"`);
+  })
+  // Return a promise that resolves until the job complete, otherwise rejects with returning the API response
+  return new Promise((resolve, reject) => {
+    setTimeout(() =>{
+      // Calling the MoveBatchCheck V2 with a time delay of 3 seconds
+      dbx.filesMoveBatchCheckV2({ "async_job_id": jobId })
+        .then((response) => {
+          if (response.result['.tag'] === 'complete') {
+            // Resolve the promise
+            resolve({ '.tag': 'complete', 'entries': response.result.entries });
+          } else if (response.result['.tag'] === 'in_progress') {
+            // Continue to check the progress by recalling the function itself
+            checkProgress(jobId, items)
+              .then((resolved) => {
+                resolve({ '.tag': 'complete', 'entries': resolved.entries });
+              })
+              .catch((err) => {
+                console.log(err);
+              })
+          } else (
+            // Reject the promise with returning the API response
+            reject(response.result)
+          )
+        })
+        .catch ((err) => {
+          console.log(err);
+        });
+      }, 3000);
+  })
 }

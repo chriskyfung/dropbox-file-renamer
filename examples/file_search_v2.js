@@ -31,12 +31,20 @@ const dbx = new Dropbox({ accessToken: process.env.ACCESS_TOKEN });
 
 dbx.filesSearchV2({ 'query': searchQurey, 'options': searchOptions })
   .then((response) => {
-    const matches = response.result.matches;
-    matches.forEach((match) => {
-      const path = match.metadata.metadata.path_display;
-      console.log(path);
-    })
+    processResponse(response);
   })
   .catch((err) => {
     console.log(err);
   });
+
+function processResponse(response) {
+  // Output the value of `path_display` for each search result
+  const json = response.result;
+  console.log(json.matches.map(m => m.metadata.metadata.path_display));
+  // Check if there is next page
+  if (json.has_more) {
+    // Fetches the next page of search results
+    dbx.filesSearchContinueV2({ "cursor": json.cursor })
+      .then(response => processResponse(response))
+  }
+}

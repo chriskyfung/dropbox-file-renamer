@@ -29,11 +29,21 @@ const dbx = new Dropbox({ accessToken: process.env.ACCESS_TOKEN });
 
 dbx.filesListFolder(params)
 .then((response) => {
-  const folders = response.result.entries;
-  folders.forEach(folder => {
-    console.log(folder.name);
-  });
+  processResponse(response);
 })
 .catch((err) => {
   console.log(err);
 });
+
+function processResponse(response) {
+  // Output the value of `path_display` for each search result
+  const json = response.result;
+  console.log(json.entries.map(e => e.name));
+  // Check if there is next page
+  if (json.has_more) {
+    // Fetches the next page of search results
+    dbx.filesListFolderContinue({ "cursor": json.cursor })
+      .then(response => processResponse(response))
+  }
+}
+
