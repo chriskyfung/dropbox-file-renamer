@@ -9,6 +9,7 @@
 
 require('dotenv').config()
 
+const async = require('async');
 const prompt = require('prompt');
 const { Dropbox } = require('dropbox'); // eslint-disable-line import/no-unresolved
 
@@ -29,22 +30,56 @@ prompt.start();
 
 const dbx = new Dropbox({ accessToken: process.env.ACCESS_TOKEN });
 
+console.log(`\nStart searching for ${searchQurey}:\n`);
+
 dbx.filesSearchV2({ 'query': searchQurey, 'options': searchOptions })
   .then((response) => {
-    processResponse(response);
+    const json = response.result;
+
+    // Output the value of `path_display` for each search result
+    function processResponse(json) {
+      const pathDisplays = json.matches.map(m => m.metadata.metadata.path_display);
+      pathDisplays.forEach(p => console.log(p));
+      return pathDisplays;
+    }
+
+    async function asyncCall(callback) {
+      let offset = 0;
+      let allResults = processResponse(json);
+      
+      let hasNextPage = json.has_more;
+      let nextCursor = hasNextPage ? json.cursor : null;
+
+      let results = [];
+
+      while (hasNextPage) {
+        if (hasNextPage && nextCursor) {
+          const newResponse = await dbx.filesSearchContinueV2({ "cursor": nextCursor });
+          const newJson = newResponse.result;
+          results = processResponse(newJson);
+          hasNextPage = newJson.has_more;
+          nextCursor = newJson.has_more ? newJson.cursor : null;
+          offset++;
+        }
+        allResults = allResults.concat(results);
+      }
+      return new Promise((resolve, reject) => {
+        resolve({
+          "results": {
+            "path_displays": allResults
+          }
+        })
+      })
+    }
+
+    try {
+      asyncCall().then(resolved => {
+        console.log(`\nTotal: ${resolved.results.path_displays.length} result(s)\n`);
+      });
+    } catch (err) {
+      console.error(err);
+    }
   })
   .catch((err) => {
     console.log(err);
   });
-
-function processResponse(response) {
-  // Output the value of `path_display` for each search result
-  const json = response.result;
-  console.log(json.matches.map(m => m.metadata.metadata.path_display));
-  // Check if there is next page
-  if (json.has_more) {
-    // Fetches the next page of search results
-    dbx.filesSearchContinueV2({ "cursor": json.cursor })
-      .then(response => processResponse(response))
-  }
-}
