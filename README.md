@@ -54,7 +54,7 @@ node ./example/[target-script-name].js
 
 - `file_search_v2.js` - Searches for files and folders using the `/files/search_v2` and `/files/search/continue_v2` endpoints
 
-- `ilst_folder.js` - Lists the items of a folder using the `/files/list_folder` and `/files/list_folder/continue` endpoints
+- `list_folder.js` - Lists the items of a folder using the `/files/list_folder` and `/files/list_folder/continue` endpoints
 
 ## Learn More 📚
 
