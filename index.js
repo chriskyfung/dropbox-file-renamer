@@ -84,7 +84,7 @@ function filterMatches(items) {
       return { from_path: path, to_path: newPath };
     })
     // filter and return only the items need to be renamed by checking if any case insensitive changes
-    .filter((mapped) => mapped.from_path.lower() !== mapped.to_path.lower());
+    .filter((mapped) => mapped.from_path.toLowerCase() !== mapped.to_path.toLowerCase());
 }
 
 /**
