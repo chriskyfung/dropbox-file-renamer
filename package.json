@@ -1,16 +1,20 @@
 {
   "name": "dropbox-file-renamer",
   "version": "1.2.1",
-  "description": "",
+  "description": "Batch rename multiple Dropbox files using Dropbox API V2",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+    "open": "start https://www.dropbox.com/developers/apps",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "dropbox"
+    "dropbox",
+    "dropbox-api",
+    "renamer",
+    "rename-files"
   ],
-  "author": "@chriskyfung",
+  "author": "Chris K.Y. Fung <@chriskyfung> (<https://chriskyfung.github.io>)",
   "engines": {
     "node": ">=0.10.3",
     "npm": ">=10.34.0"
