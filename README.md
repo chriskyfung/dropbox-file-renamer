@@ -44,6 +44,14 @@ This example uses [the Official Dropbox API V2 SDK for Javascript](https://githu
    npm start
    ```
 
+## Testing 🧪
+
+Run the test script using
+
+```shell
+npm test
+```
+
 ## Examples
 
 You can execute an example script using the following command in your terminal:

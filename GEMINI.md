@@ -17,6 +17,7 @@ The main goal of this project is to help the user batch rename files in their Dr
 - `config.js`: This file contains the configuration for the script, including the search query and rename rules. This is the file that will be modified most often.
 - `.env`: This file must be created by the user to store their Dropbox API access token. It should contain a line like `ACCESS_TOKEN=your_access_token`.
 - `package.json`: Defines the project dependencies and scripts. The main dependency is the `dropbox` npm package.
+- `index.test.js`: Contains the tests for `index.js`.
 
 ## How to Assist the User
 
