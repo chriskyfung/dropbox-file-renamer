@@ -81,4 +81,4 @@ Would you like to buy me a coffee? I would really appreciate it if you could sup
 
 ## License
 
-Distributed under the [GNU Affero General Public License v3.0](LICENSE)
+Distributed under the [GNU General Public License v3.0](LICENSE)

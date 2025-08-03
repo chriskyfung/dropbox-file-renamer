@@ -73,3 +73,20 @@ The footer can be used to reference issues, pull requests, or breaking changes. 
 ### Atomic Commits
 
 Each commit should be atomic, meaning it should contain a single, complete change. This makes the git history easier to read and understand. Avoid bundling multiple unrelated changes into a single commit.
+
+## Release Process
+
+When creating a new release, use the `gh` command-line tool.
+
+1.  **Create and push a new tag:**
+
+    ```shell
+    git tag -a vX.X.X -m "Version X.X.X" main
+    git push origin vX.X.X
+    ```
+
+2.  **Create the release:**
+
+    ```shell
+    gh release create vX.X.X -t "vX.X.X" -n "$(cat CHANGELOG.md)"
+    ```
