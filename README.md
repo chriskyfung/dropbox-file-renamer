@@ -2,7 +2,7 @@
 
 This example uses [the Official Dropbox API V2 SDK for Javascript](https://github.com/dropbox/dropbox-sdk-js) to search and rename files.
 
-## Installation 🛠
+## Installation 🛠️
 
 1. Create an app via the [Developer Console](https://dropbox.com/developers/apps)
 
@@ -28,7 +28,7 @@ This example uses [the Official Dropbox API V2 SDK for Javascript](https://githu
 
 1. Open the `index.js` file in Visual Studio Code
 
-2. Modify the query string passed to the `filesSearchV2()` to search for your target files
+2. Modify the query string passed to the `filesSearchV2()` to search for your target files. **Tips**: Learn more about advanced search operators on [Dropbox Help Center](https://help.dropbox.com/view-edit/search).
 
 3. Modify the regular expression and replacement for the `filename.replace()` methods to generate the new filenames of the matched files
 
@@ -54,7 +54,7 @@ node ./example/[target-script-name].js
 
 - `file_search_v2.js` - Searches for files and folders using the `/files/search_v2` and `/files/search/continue_v2` endpoints
 
-- `ilst_folder.js` - Lists the items of a folder using the `/files/list_folder` and `/files/list_folder/continue` endpoints
+- `list_folder.js` - Lists the items of a folder using the `/files/list_folder` and `/files/list_folder/continue` endpoints
 
 ## Learn More 📚
 
