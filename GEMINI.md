@@ -13,16 +13,17 @@ The main goal of this project is to help the user batch rename files in their Dr
 
 ## Core Files
 
-- `index.js`: This is the main script that contains the logic for searching and renaming files. This is the file that will be modified most often.
+- `index.js`: This is the main script that contains the logic for searching and renaming files.
+- `config.js`: This file contains the configuration for the script, including the search query and rename rules. This is the file that will be modified most often.
 - `.env`: This file must be created by the user to store their Dropbox API access token. It should contain a line like `ACCESS_TOKEN=your_access_token`.
 - `package.json`: Defines the project dependencies and scripts. The main dependency is the `dropbox` npm package.
 
 ## How to Assist the User
 
 1. **Understand the User's Goal:** Ask the user what files they want to rename and what the new naming scheme should be.
-2. **Modify `index.js`:**
-    - Update the `query` variable in the `filesSearchV2` call to match the user's search criteria.
-    - Update the regular expression and replacement string in the `filename.replace()` method to achieve the desired new filenames.
+2. **Modify `config.js`:**
+    - Update the `query` variable to match the user's search criteria.
+    - Update the regular expression and replacement string in the `renameRules` array to achieve the desired new filenames.
 3. **Guide the User on Running the Script:**
     - Remind the user to create the `.env` file with their `ACCESS_TOKEN`.
     - The script is run using `node index.js` or `npm start`.

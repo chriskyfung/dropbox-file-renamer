@@ -26,11 +26,11 @@ This example uses [the Official Dropbox API V2 SDK for Javascript](https://githu
 
 ## How to Use 🔰
 
-1. Open the `index.js` file in Visual Studio Code
+1. Open the `config.js` file in Visual Studio Code
 
-2. Modify the query string passed to the `filesSearchV2()` to search for your target files. **Tips**: Learn more about advanced search operators on [Dropbox Help Center](https://help.dropbox.com/view-edit/search).
+2. Modify the `query` variable to search for your target files. **Tips**: Learn more about advanced search operators on [Dropbox Help Center](https://help.dropbox.com/view-edit/search).
 
-3. Modify the regular expression and replacement for the `filename.replace()` methods to generate the new filenames of the matched files
+3. Modify the `renameRules` array to generate the new filenames of the matched files
 
 4. Run the script using
 
@@ -60,8 +60,8 @@ node ./example/[target-script-name].js
 
 - [**Dropbox API Explorer**](https://dropbox.github.io/dropbox-api-v2-explorer)
 
-  - [search_v2Switch](https://dropbox.github.io/dropbox-api-v2-explorer/#files_search_v2) - \[ [Docs](https://www.dropbox.com/developers/documentation/http/documentation#files-search) \]
-  - [move_batch_v2](https://dropbox.github.io/dropbox-api-v2-explorer/#files_move_batch_v2) - \[ [Docs](https://www.dropbox.com/developers/documentation/http/documentation#files-move_batch) \]
+  - [search_v2Switch](https://dropbox.github.io/dropbox-api-v2-explorer/#files_search_v2) - \[ [Docs](https://www.dropbox.com/developers/documentation/http/documentation#files-search) ]
+  - [move_batch_v2](https://dropbox.github.io/dropbox-api-v2-explorer/#files_move_batch_v2) - \[ [Docs](https://www.dropbox.com/developers/documentation/http/documentation#files-move_batch) ]
 
 - [Search Files Using the Dropbox API - Dropbox](https://dropbox.tech/developers/search-files-using-the-dropbox-api)
 
