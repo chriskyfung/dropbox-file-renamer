@@ -12,9 +12,13 @@ This document contains a list of potential features, improvements, and ideas for
 ## Improvements
 
 - **Improved Error Handling**: As a developer, I want to improve the error handling in the application, so that it can gracefully handle issues such as invalid access tokens or network errors and provide more informative error messages to the user.
-- **Statistics**: As a user, I want to see statistics about my files, such as the number of files per tag, extension, or file size, so that I can better understand the composition of my files.
+- **File Statistics Report**: As a user, I want to generate a report with statistics about my files so that I can better understand their composition. The report could include:
+  - **File Count per Tag**: A breakdown of how many files are associated with each tag.
+  - **File Count per Extension**: A count of files grouped by their file extension (e.g., .jpg, .pdf, .docx).
+  - **File Size Distribution**: Statistics on file sizes, such as average, median, largest, and smallest file sizes.
+  - **Image Dimensions**: For image files, provide statistics on their dimensions (e.g., average width and height).
 
 ## Research/Ideas
 
-- **AI-Powered Image Renaming**: Explore the possibility of using AI to automatically rename image files based on their content.
-- **N-gram Analysis**: Investigate the use of n-gram analysis to provide more advanced file search and renaming capabilities.
+- **AI-Powered Image Renaming**: Explore using AI services (like computer vision APIs) to automatically suggest or apply new filenames for images based on their visual content. For example, an image of a cat could be renamed `cat-on-sofa-2025.jpg`.
+- **N-gram Analysis for Advanced Search**: Investigate using n-gram analysis of filenames and content to provide more intelligent and flexible search capabilities, helping users find files even with partial or misspelled queries.
