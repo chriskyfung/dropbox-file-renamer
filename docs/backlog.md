@@ -6,7 +6,7 @@ This document contains a list of potential features, improvements, and ideas for
 
 - **Search by Tags**: As a user, I want to be able to search for files based on their tags, so that I can easily find and rename files that are organized with tags.
 - **Search in Multiple Folders**: As a user, I want to be able to specify a list of folders to search in, so that I can limit my search to specific areas of my Dropbox.
-- **Interactive Mode**: As a user, I want to be able to run the application in an interactive mode, so that I can be prompted for the search query and renaming rules instead of editing the configuration file.
+- **Interactive Mode**: As a user, I want to run the application with an `--interactive` flag to be guided through the renaming process. Instead of editing the `config.js` file, the application would use a library like `prompt` to ask me for the search query, the regular expression for renaming, and the replacement pattern directly in the terminal. This would make the tool faster to use and more accessible for users who are less comfortable editing code.
 - **Support for Other Cloud Storage Providers**: As a user, I want to be able to use the application with other cloud storage providers, such as Google Drive or OneDrive, so that I can manage files across different platforms.
 
 ## Improvements
