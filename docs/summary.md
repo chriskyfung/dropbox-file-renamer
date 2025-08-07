@@ -1,5 +1,7 @@
 # SDLC Documents Summary
 
+This document provides a high-level overview of the Software Development Life Cycle (SDLC) documents for the Dropbox File Renamer project. These documents are intended to provide a comprehensive guide for developers, outlining the project's requirements, design, and future direction.
+
 This document provides a summary of the Software Development Life Cycle (SDLC) documents for the Dropbox File Renamer project.
 
 ## 1. Software Requirements Specification (SRS)

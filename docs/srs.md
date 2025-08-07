@@ -4,11 +4,15 @@
 
 This document outlines the requirements for the Dropbox File Renamer, a Node.js application that allows users to batch rename files in their Dropbox account.
 
-### 1.1. Project Scope
+### 1.1. Purpose
+
+The purpose of this document is to provide a detailed description of the requirements for the Dropbox File Renamer. It will serve as the foundation for the design, development, and testing of the application, ensuring that the final product meets the specified needs.
+
+### 1.2. Project Scope
 
 The project aims to provide a user-friendly command-line interface (CLI) for renaming files based on user-defined rules. The application will interact with the Dropbox API to search for and rename files.
 
-### 1.2. Definitions, Acronyms, and Abbreviations
+### 1.3. Definitions, Acronyms, and Abbreviations
 
 - **API**: Application Programming Interface
 - **CLI**: Command-Line Interface

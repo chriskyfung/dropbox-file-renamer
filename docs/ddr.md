@@ -6,7 +6,7 @@ This document describes the design and development of the Dropbox File Renamer, 
 
 ## 2. System Architecture
 
-The application follows a simple, single-process architecture. It is a command-line application that reads a configuration file, interacts with the Dropbox API, and outputs the results to the console.
+The application operates as a client that interacts with the external Dropbox API. It follows a simple, single-process architecture and runs as a command-line tool. Its primary function is to read a local configuration file, send requests to the Dropbox API based on that configuration, and then process the responses to rename files.
 
 ### 2.1. Components
 
