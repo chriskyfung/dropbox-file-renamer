@@ -20,7 +20,7 @@
   },
   "license": "GPL-3.0-or-later",
   "dependencies": {
-    "dotenv": "^17.2.1",
+    "dotenv": "^17.2.2",
     "dropbox": "^10.34.0",
     "prompt": "^1.3.0"
   },
