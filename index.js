@@ -3,6 +3,7 @@ require('dotenv').config()
 const path = require('path');
 const prompt = require('prompt');
 const { Dropbox } = require('dropbox');
+const safe = require('safe-regex');
 
 // User-defined Parameters
 const { query, searchOptions, renameRules } = require('./config');
@@ -70,6 +71,10 @@ function filterMatches(items) {
       // Generate the new name and new path
       let newName = name;
       renameRules.forEach(rule => {
+        if (!safe(rule.pattern)) {
+          console.error(`Skipping unsafe regex pattern: ${rule.pattern}`);
+          return;
+        }
         newName = newName.replace(rule.pattern, rule.newString);
       })
       const newPath = path.replace(name, newName);
