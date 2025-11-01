@@ -26,10 +26,7 @@ jest.mock('dropbox', () => ({
 
 beforeEach(() => {
   // Clear all instances and calls to constructor and all methods:
-  mockDbx.filesSearchV2.mockClear();
-  mockDbx.filesSearchContinueV2.mockClear();
-  mockDbx.filesMoveBatchV2.mockClear();
-  mockDbx.filesMoveBatchCheckV2.mockClear();
+  jest.clearAllMocks();
 });
 
 describe('filterMatches', () => {
