@@ -1,6 +1,6 @@
 {
   "name": "dropbox-file-renamer",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Batch rename multiple Dropbox files using Dropbox API V2",
   "main": "index.js",
   "scripts": {
