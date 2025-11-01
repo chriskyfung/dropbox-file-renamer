@@ -76,15 +76,4 @@ The target user is someone who is comfortable with using the command line and ha
 - The application shall be able to handle errors gracefully and provide informative error messages.
 - The application shall be able to recover from network errors and continue processing.
 
-## 4. Future Ideas
 
-- Search filters
-  - Find files by tags
-  - Find files from a set of separate folders
-- Rename image files by AI
-- Statistics
-  - Tag
-  - Extension
-  - N-gram
-  - File size
-  - Image size
