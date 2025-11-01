@@ -8,6 +8,14 @@ const RE2 = require('re2');
 // User-defined Parameters
 const { query, searchOptions, renameRules } = require('./config');
 
+// Compile renameRules patterns to RE2 objects once at startup
+const compiledRenameRules = renameRules.map(rule => {
+  return {
+    pattern: new RE2(rule.pattern),
+    newString: rule.newString
+  };
+});
+
 // Main 
 async function main() {
   try {
@@ -70,10 +78,13 @@ function filterMatches(items) {
 
       // Generate the new name and new path
       let newName = name;
-      renameRules.forEach(rule => {
-        const re = new RE2(rule.pattern);
-        newName = newName.replace(re, rule.newString);
-      })
+      compiledRenameRules.forEach(rule => {
+        try {
+          newName = newName.replace(rule.pattern, rule.newString);
+        } catch (e) {
+          console.error(`Error applying regex pattern: ${rule.pattern.source}`, e);
+        }
+      })  
       const newPath = path.replace(name, newName);
 
       return { from_path: path, to_path: newPath };
