@@ -83,7 +83,7 @@ function filterMatches(items) {
  */
 async function renameFiles(dbx, itemsToRename) {
   if (itemsToRename.length <= 0) {
-    console.log("0 items to reanme");
+    console.log("0 items to rename");
     return;
   }
 
@@ -144,3 +144,10 @@ async function checkProgress(dbx, jobId, items) {
     }
   }
 }
+
+module.exports = {
+  processResponse,
+  filterMatches,
+  renameFiles,
+  checkProgress
+};
