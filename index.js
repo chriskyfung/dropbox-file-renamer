@@ -3,9 +3,23 @@ require('dotenv').config()
 const path = require('path');
 const prompt = require('prompt');
 const { Dropbox } = require('dropbox');
+const RE2 = require('re2');
 
 // User-defined Parameters
 const { query, searchOptions, renameRules } = require('./config');
+
+// Compile renameRules patterns to RE2 objects once at startup
+const compiledRenameRules = renameRules.map(rule => {
+  try {
+    return {
+      pattern: new RE2(rule.pattern),
+      newString: rule.newString
+    };
+  } catch (e) {
+    console.error(`Skipping invalid regex pattern in config.js: ${rule.pattern.toString()}`, e);
+    return null;
+  }
+}).filter(Boolean);  
 
 // Main 
 async function main() {
@@ -69,9 +83,13 @@ function filterMatches(items) {
 
       // Generate the new name and new path
       let newName = name;
-      renameRules.forEach(rule => {
-        newName = newName.replace(rule.pattern, rule.newString);
-      })
+      compiledRenameRules.forEach(rule => {
+        try {
+          newName = newName.replace(rule.pattern, rule.newString);
+        } catch (e) {
+          console.error(`Error applying regex pattern: ${rule.pattern.source}`, e);
+        }
+      })  
       const newPath = path.replace(name, newName);
 
       return { from_path: path, to_path: newPath };
