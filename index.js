@@ -10,11 +10,16 @@ const { query, searchOptions, renameRules } = require('./config');
 
 // Compile renameRules patterns to RE2 objects once at startup
 const compiledRenameRules = renameRules.map(rule => {
-  return {
-    pattern: new RE2(rule.pattern),
-    newString: rule.newString
-  };
-});
+  try {
+    return {
+      pattern: new RE2(rule.pattern),
+      newString: rule.newString
+    };
+  } catch (e) {
+    console.error(`Skipping invalid regex pattern in config.js: ${rule.pattern.toString()}`, e);
+    return null;
+  }
+}).filter(Boolean);  
 
 // Main 
 async function main() {
