@@ -144,3 +144,10 @@ async function checkProgress(dbx, jobId, items) {
     }
   }
 }
+
+module.exports = {
+  processResponse,
+  filterMatches,
+  renameFiles,
+  checkProgress
+};
