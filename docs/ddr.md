@@ -49,6 +49,7 @@ This file exports an object with the following properties:
 - **`dropbox`**: The official Dropbox API V2 SDK for JavaScript.
 - **`dotenv`**: A module that loads environment variables from a `.env` file.
 - **`prompt`**: A module for creating interactive command-line prompts.
+- **`jest`**: A delightful JavaScript Testing Framework with a focus on simplicity.
 
 ### 4.2. Testing
 
@@ -58,6 +59,11 @@ The project includes a test suite using Jest. The tests cover the main functiona
 
 Future development could include the following:
 
+- **Web Interface (Locally Hosted)**: To improve usability, a web-based graphical user interface (GUI) could be added. This would involve:
+  - Integrating a lightweight web server using a framework like **Express.js**.
+  - Creating a simple HTML form where users can input their search query and renaming rules, removing the need to edit `config.js`.
+  - Displaying the results of the renaming operation in the browser.
+  - The application would be started as a local server, and the user would interact with it through their web browser at an address like `http://localhost:3000`.
 - **Improved Error Handling**: More robust error handling to handle cases such as invalid access tokens or network errors.
 - **Interactive Mode**: An interactive mode that prompts the user for the search query and renaming rules.
 - **Support for Other Cloud Storage Providers**: Adding support for other cloud storage providers such as Google Drive or OneDrive.
