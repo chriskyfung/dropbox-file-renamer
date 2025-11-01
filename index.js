@@ -8,7 +8,7 @@ const { Dropbox } = require('dropbox');
 const { query, searchOptions, renameRules } = require('./config');
 
 // Main 
-(async () => {
+async function main() {
   try {
     prompt.start();
 
@@ -20,7 +20,11 @@ const { query, searchOptions, renameRules } = require('./config');
   } catch (error) {
     console.error(error);
   }
-})();
+}
+
+if (require.main === module) {
+  main();
+}
 
 /**
  * Processes the response from the Dropbox API, handling pagination and calling the rename function.
