@@ -90,6 +90,11 @@ describe('checkProgress', () => {
 });
 
 describe('processResponse', () => {
+  beforeEach(() => {
+    mockDbx.filesMoveBatchV2.mockResolvedValue({ result: { async_job_id: '123' } });
+    mockDbx.filesMoveBatchCheckV2.mockResolvedValue({ result: { '.tag': 'complete', entries: [] } });
+  });  
+
   it('should process a single page of results', async () => {
     const response = {
       result: {
@@ -97,9 +102,7 @@ describe('processResponse', () => {
         has_more: false
       }
     };
-    mockDbx.filesMoveBatchV2.mockResolvedValue({ result: { async_job_id: '123' } });
-    mockDbx.filesMoveBatchCheckV2.mockResolvedValue({ result: { '.tag': 'complete', entries: [] } });
-
+    
     await processResponse(mockDbx, response);
     expect(mockDbx.filesMoveBatchV2).toHaveBeenCalled();
   });
@@ -119,9 +122,7 @@ describe('processResponse', () => {
       }
     };
     mockDbx.filesSearchContinueV2.mockResolvedValue(response2);
-    mockDbx.filesMoveBatchV2.mockResolvedValue({ result: { async_job_id: '123' } });
-    mockDbx.filesMoveBatchCheckV2.mockResolvedValue({ result: { '.tag': 'complete', entries: [] } });
-
+    
     await processResponse(mockDbx, response1);
     expect(mockDbx.filesSearchContinueV2).toHaveBeenCalledWith({ cursor: 'abc' });
     expect(mockDbx.filesMoveBatchV2).toHaveBeenCalledTimes(2);
