@@ -57,7 +57,7 @@ describe('renameFiles', () => {
   it('should do nothing if there are no items to rename', async () => {
     const consoleLogSpy = jest.spyOn(console, 'log').mockImplementation();
     await renameFiles(mockDbx, []);
-    expect(consoleLogSpy).toHaveBeenCalledWith('0 items to reanme');
+    expect(consoleLogSpy).toHaveBeenCalledWith('0 items to rename');
     consoleLogSpy.mockRestore();
   });
 
