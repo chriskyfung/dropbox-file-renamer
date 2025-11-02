@@ -6,64 +6,74 @@ This document describes the design and development of the Dropbox File Renamer, 
 
 ## 2. System Architecture
 
-The application operates as a client that interacts with the external Dropbox API. It follows a simple, single-process architecture and runs as a command-line tool. Its primary function is to read a local configuration file, send requests to the Dropbox API based on that configuration, and then process the responses to rename files.
+The application operates as a client that interacts with the external Dropbox API. It runs as a command-line tool and supports two modes of operation:
+
+-   **Configuration-based Mode**: Reads a local configuration file (`config.js`) to perform batch renaming.
+-   **Interactive Mode**: Guides the user through a series of prompts to define search and rename parameters on the fly.
 
 ### 2.1. Components
 
-- **`index.js`**: The main entry point of the application. It handles the overall workflow, including reading the configuration, searching for files, and renaming them.
-- **`config.js`**: The configuration file where the user defines the search query and renaming rules.
-- **`.env`**: A file that stores the user's Dropbox API access token.
-- **`package.json`**: Defines the project dependencies and scripts.
+-   **`index.js`**: The main entry point of the application. It uses `commander.js` to parse command-line arguments and routes to the appropriate mode (default or interactive).
+-   **`config.js`**: The configuration file for the configuration-based mode.
+-   **`.env`**: Stores the user's Dropbox API access token.
+-   **`package.json`**: Defines project dependencies, including `dropbox`, `dotenv`, `commander`, and `prompt`.
 
 ### 2.2. Data Flow
 
-1. The application starts and reads the configuration from `config.js`.
-2. It then reads the Dropbox API access token from the `.env` file.
-3. It uses the access token and search query to make a request to the Dropbox API's `filesSearchV2` endpoint.
-4. The application processes the search results, applying the renaming rules to generate new filenames.
-5. It then calls the Dropbox API's `filesMoveBatchV2` endpoint to rename the files.
-6. The application polls the `filesMoveBatchCheckV2` endpoint to monitor the progress of the renaming job.
-7. Finally, it outputs the results of the renaming operations to the console.
+#### Configuration-based Mode
+1.  The application starts and reads the configuration from `config.js`.
+2.  It reads the Dropbox API access token from the `.env` file.
+3.  It uses the configuration to search for files via the Dropbox API.
+4.  The application processes the results, applies renaming rules, and renames the files.
+5.  It polls for job completion and outputs the results to the console.
+
+#### Interactive Mode
+1.  The user runs the application with the `-i` or `--interactive` flag.
+2.  The application prompts the user for a search query.
+3.  It enters a loop, prompting the user for one or more renaming rules (regex and replacement).
+4.  The application searches for files based on the user's query.
+5.  It displays a preview of the proposed file renames.
+6.  The user is asked for confirmation to proceed.
+7.  If confirmed, the application renames the files and reports the final status.
 
 ## 3. Detailed Design
 
 ### 3.1. `index.js`
 
-- **`processResponse(dbx, response)`**: This function handles the pagination of the search results. It calls the `filterMatches` and `renameFiles` functions for each page of results.
-- **`filterMatches(items)`**: This function applies the renaming rules to the search results and returns a list of files to be renamed.
-- **`renameFiles(dbx, itemsToRename)`**: This function calls the `filesMoveBatchV2` endpoint to rename the files and then calls `checkProgress` to monitor the job.
-- **`checkProgress(dbx, jobId, items)`**: This function polls the `filesMoveBatchCheckV2` endpoint to check the status of the renaming job and outputs the results to the console.
+The main script is now structured around `commander.js` and separates logic into distinct functions:
+
+-   **`runDefaultMode()`**: Contains the logic for the original configuration-based renaming process.
+-   **`runInteractiveMode()`**: Manages the interactive session, handling all user prompts, previews, and confirmation steps.
+-   **`processResponse(dbx, response, compiledRenameRules)`**: Handles pagination of search results for both modes.
+-   **`filterMatches(items, compiledRenameRules)`**: Applies renaming rules to search results.
+-   **`renameFiles(dbx, itemsToRename)`**: Calls the `filesMoveBatchV2` endpoint and monitors the job.
+-   **`checkProgress(dbx, jobId, items)`**: Polls the `filesMoveBatchCheckV2` endpoint to check the status of the renaming job.
 
 ### 3.2. `config.js`
 
-This file exports an object with the following properties:
-
-- **`query`**: A string representing the search query.
-- **`searchOptions`**: An object containing advanced search options.
-- **`renameRules`**: An array of objects, where each object defines a regular expression pattern and a replacement string.
+This file remains the same, exporting an object with `query`, `searchOptions`, and `renameRules` for the configuration-based mode.
 
 ## 4. Development
 
 ### 4.1. Dependencies
 
-- **`dropbox`**: The official Dropbox API V2 SDK for JavaScript.
-- **`dotenv`**: A module that loads environment variables from a `.env` file.
-- **`prompt`**: A module for creating interactive command-line prompts.
-- **`jest`**: A delightful JavaScript Testing Framework with a focus on simplicity.
+-   **`dropbox`**: The official Dropbox API V2 SDK for JavaScript.
+-   **`dotenv`**: Loads environment variables from a `.env` file.
+-   **`commander`**: A framework for building command-line interfaces. Used to handle the `rename -i` command.
+-   **`prompt`**: A module for creating interactive command-line prompts, used in the interactive mode.
+-   **`jest`**: A JavaScript Testing Framework.
 
 ### 4.2. Testing
 
-The project includes a test suite using Jest. The tests cover the main functionality of the application, including the `filterMatches` function.
+The project includes a test suite using Jest. The tests cover the main functionality of the application, including the `filterMatches` function and the new interactive mode logic.
 
 ## 5. Future Development
 
 Future development could include the following:
 
-- **Web Interface (Locally Hosted)**: To improve usability, a web-based graphical user interface (GUI) could be added. This would involve:
-  - Integrating a lightweight web server using a framework like **Express.js**.
-  - Creating a simple HTML form where users can input their search query and renaming rules, removing the need to edit `config.js`.
-  - Displaying the results of the renaming operation in the browser.
-  - The application would be started as a local server, and the user would interact with it through their web browser at an address like `http://localhost:3000`.
-- **Improved Error Handling**: More robust error handling to handle cases such as invalid access tokens or network errors.
-- **Interactive Mode**: An interactive mode that prompts the user for the search query and renaming rules.
-- **Support for Other Cloud Storage Providers**: Adding support for other cloud storage providers such as Google Drive or OneDrive.
+-   **Web Interface (Locally Hosted)**: To improve usability, a web-based graphical user interface (GUI) could be added. This would involve:
+    -   Integrating a lightweight web server using a framework like **Express.js**.
+    -   Creating a simple HTML form where users can input their search query and renaming rules.
+    -   Displaying the results of the renaming operation in the browser.
+-   **Improved Error Handling**: More robust error handling to handle cases such as invalid access tokens or network errors.
+-   **Support for Other Cloud Storage Providers**: Adding support for other cloud storage providers such as Google Drive or OneDrive.

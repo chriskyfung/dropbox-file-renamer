@@ -10,7 +10,7 @@ The purpose of this document is to provide a detailed description of the require
 
 ### 1.2. Project Scope
 
-The project aims to provide a user-friendly command-line interface (CLI) for renaming files based on user-defined rules. The application will interact with the Dropbox API to search for and rename files.
+The project aims to provide a user-friendly command-line interface (CLI) for renaming files based on user-defined rules. The application will interact with the Dropbox API to search for and rename files, offering both a configuration-driven mode and an interactive prompt-based mode.
 
 ### 1.3. Definitions, Acronyms, and Abbreviations
 
@@ -23,29 +23,38 @@ The project aims to provide a user-friendly command-line interface (CLI) for ren
 
 ### 2.1. Product Perspective
 
-The Dropbox File Renamer is a standalone Node.js application that interacts with the Dropbox API. It is designed to be run from the command line and configured through a local configuration file.
+The Dropbox File Renamer is a standalone Node.js application that interacts with the Dropbox API. It is designed to be run from the command line and can be operated either through a local configuration file or via an interactive series of prompts.
 
 ### 2.2. Product Functions
 
-- Search for files in a Dropbox account using a specified query.
-- Rename files based on user-defined regular expression rules.
-- Handle pagination of search results.
-- Provide feedback to the user on the status of the renaming process.
+-   **Configuration-based Mode**:
+    -   Search for files in a Dropbox account using a query specified in `config.js`.
+    -   Rename files based on regular expression rules defined in `config.js`.
+-   **Interactive Mode**:
+    -   Prompt the user for a search query.
+    -   Prompt the user for one or more renaming rules.
+    -   Display a preview of the changes before execution.
+    -   Require user confirmation before renaming files.
+-   **General**:
+    -   Handle pagination of search results.
+    -   Provide feedback to the user on the status of the renaming process.
 
 ### 2.3. User Characteristics
 
-The target user is someone who is comfortable with using the command line and has a basic understanding of regular expressions.
+The target user is someone who uses Dropbox and needs to perform batch file renaming.
+-   Users comfortable with editing configuration files and basic regular expressions can use the configuration-based mode.
+-   Users who prefer a guided experience without editing files can use the interactive mode.
 
 ### 2.4. Constraints
 
-- The user must have a Dropbox account and be able to create a Dropbox application to obtain an access token.
-- The application requires Node.js to be installed on the user's machine.
+-   The user must have a Dropbox account and be able to create a Dropbox application to obtain an access token.
+-   The application requires Node.js to be installed on the user's machine.
 
 ### 2.5. Assumptions and Dependencies
 
-- The user has a stable internet connection.
-- The Dropbox API is available and functioning correctly.
-- The application depends on the `dropbox`, `dotenv`, and `prompt` npm packages.
+-   The user has a stable internet connection.
+-   The Dropbox API is available and functioning correctly.
+-   The application depends on the `dropbox`, `dotenv`, `prompt`, and `commander` npm packages.
 
 ## 3. Specific Requirements
 
@@ -53,15 +62,24 @@ The target user is someone who is comfortable with using the command line and ha
 
 #### 3.1.1. File Search
 
-- The application shall be able to search for files in the user's Dropbox account using a user-defined query.
-- The search shall support advanced search operators as defined by the Dropbox API.
-- The search shall be able to handle a large number of results through pagination.
+-   The application shall be able to search for files in the user's Dropbox account using a user-defined query.
+-   The search shall support advanced search operators as defined by the Dropbox API.
+-   The search shall be able to handle a large number of results through pagination.
 
-#### 3.1.2. File Renaming
+#### 3.1.2. File Renaming (Configuration-based)
 
-- The application shall be able to rename files based on a set of user-defined regular expression rules.
-- The renaming rules shall be applied to the search results.
-- The application shall provide feedback to the user on the success or failure of each renaming operation.
+-   The application shall be able to rename files based on a set of regular expression rules defined in `config.js`.
+-   The renaming rules shall be applied to the search results.
+-   The application shall provide feedback to the user on the success or failure of each renaming operation.
+
+#### 3.1.3. Interactive Mode
+
+-   The application shall provide an interactive mode accessible via a CLI flag (`-i` or `--interactive`).
+-   The interactive mode shall prompt the user to enter a search query.
+-   The interactive mode shall prompt the user to enter at least one renaming rule, consisting of a regular expression and a replacement pattern.
+-   The interactive mode shall allow the user to enter multiple renaming rules.
+-   Before executing the rename, the application shall display a preview of the files that will be renamed, showing the original and new filenames.
+-   The application shall require explicit user confirmation (e.g., "yes/no") before proceeding with the rename operation.
 
 ### 3.2. Non-Functional Requirements
 

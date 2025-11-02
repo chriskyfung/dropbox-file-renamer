@@ -21,9 +21,9 @@ The SRS outlines the requirements for the application. Key requirements include:
 
 The DDR describes the system architecture and design. Key aspects include:
 
-- **Architecture:** A command-line Node.js application.
-- **Components:** `index.js` (main logic), `config.js` (user configuration), `.env` (API token).
-- **Data Flow:** The application reads the configuration, searches for files using the Dropbox API, applies renaming rules, and then renames the files using the Dropbox API.
+- **Architecture:** A command-line Node.js application with two modes: configuration-based and interactive.
+- **Components:** `index.js` (main logic with `commander.js`), `config.js` (user configuration), `.env` (API token).
+- **Data Flow:** The application either reads a config file or prompts the user interactively, then searches, previews, and renames files via the Dropbox API.
 
 ## 3. Product Backlog
 
@@ -31,7 +31,6 @@ The backlog contains ideas for future development. Key features include:
 
 - Search by tags.
 - Search in multiple folders.
-- Interactive mode.
 - Support for other cloud storage providers.
 
 ## 4. User Story Example

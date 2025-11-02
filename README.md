@@ -24,25 +24,32 @@ This example uses [the Official Dropbox API V2 SDK for Javascript](https://githu
    ACCESS_TOKEN=your_access_token
    ```
 
-## How to Use 🔰
+## Usage
 
-1. Open the `config.js` file in Visual Studio Code
+### Configuration-based Mode
 
-2. Modify the `query` variable to search for your target files. **Tips**: Learn more about advanced search operators on [Dropbox Help Center](https://help.dropbox.com/view-edit/search).
+1.  **Configure your rules:** Open `config.js` and modify the `query` and `renameRules` to match your needs.
+2.  **Run the script:**
 
-3. Modify the `renameRules` array to generate the new filenames of the matched files
+    ```bash
+    npm start
+    ```
 
-4. Run the script using
+### Interactive Mode
 
-   ```shell
-   node index.js
-   ```
+For a more guided experience without editing files, use the interactive mode.
 
-   or
+1.  **Run the command with the interactive flag:**
 
-   ```shell
-   npm start
-   ```
+    ```bash
+    node index.js rename -i
+    # or
+    node index.js rename --interactive
+    ```
+
+2.  **Follow the prompts:** The application will ask for your search query and renaming rules directly in the terminal. It will then show you a preview of the changes and ask for confirmation before renaming any files.
+
+
 
 ## Testing 🧪
 
