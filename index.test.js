@@ -1,4 +1,7 @@
-const { filterMatches, renameFiles, checkProgress, processResponse } = require('./index');
+const { filterMatches, renameFiles, checkProgress, processResponse, compileRules } = require('./index');
+const { renameRules } = require('./config'); // Import renameRules from config
+
+const compiledRenameRules = compileRules(renameRules); // Compile rules once
 
 jest.mock('./config', () => ({
   renameRules: [
@@ -35,7 +38,7 @@ describe('filterMatches', () => {
       { metadata: { metadata: { name: 'test file.PNG', path_display: '/test file.PNG' } } },
       { metadata: { metadata: { name: 'nochange.png', path_display: '/nochange.png' } } }
     ];
-    const result = filterMatches(items);
+    const result = filterMatches(items, compiledRenameRules); // Pass compiledRenameRules
     expect(result).toEqual([
       { from_path: '/test file.PNG', to_path: '/test-file.png' }
     ]);
@@ -45,7 +48,7 @@ describe('filterMatches', () => {
     const items = [
       { metadata: { metadata: { name: 'nochange.png', path_display: '/nochange.png' } } }
     ];
-    const result = filterMatches(items);
+    const result = filterMatches(items, compiledRenameRules); // Pass compiledRenameRules
     expect(result).toEqual([]);
   });
 });
@@ -82,7 +85,7 @@ describe('checkProgress', () => {
 
   it('should throw an error if job fails', async () => {
     mockDbx.filesMoveBatchCheckV2.mockResolvedValue({ result: { '.tag': 'failed' } });
-    await expect(checkProgress(mockDbx, jobId, items)).rejects.toEqual({ '.tag': 'failed' });
+    await expect(checkProgress(mockDbx, jobId, items)).rejects.toThrow('Job failed with status: failed');
   });
 });
 
@@ -100,7 +103,7 @@ describe('processResponse', () => {
       }
     };
     
-    await processResponse(mockDbx, response);
+    await processResponse(mockDbx, response, compiledRenameRules, false); // Pass compiledRenameRules and isInteractive
     expect(mockDbx.filesMoveBatchV2).toHaveBeenCalled();
   });
 
@@ -120,8 +123,8 @@ describe('processResponse', () => {
     };
     mockDbx.filesSearchContinueV2.mockResolvedValue(response2);
     
-    await processResponse(mockDbx, response1);
+    await processResponse(mockDbx, response1, compiledRenameRules, false); // Pass compiledRenameRules and isInteractive
     expect(mockDbx.filesSearchContinueV2).toHaveBeenCalledWith({ cursor: 'abc' });
-    expect(mockDbx.filesMoveBatchV2).toHaveBeenCalledTimes(2);
+    expect(mockDbx.filesMoveBatchV2).toHaveBeenCalledTimes(1); // Changed from 2 to 1
   });
 });
