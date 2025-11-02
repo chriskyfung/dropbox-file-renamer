@@ -3,12 +3,16 @@
   "version": "1.4.0",
   "description": "Batch rename multiple Dropbox files using Dropbox API V2",
   "main": "index.js",
+  "bin": {
+    "dropbox-file-renamer": "./index.js"
+  },
   "scripts": {
     "start": "node index",
     "test": "jest",
-    "test:all": "npm run test:index && npm run test:re2",
+    "test:all": "npm run test:index && npm run test:re2 && npm run test:interactive",
     "test:index": "jest index",
     "test:re2": "jest re2",
+    "test:interactive": "jest interactive.test.js",
     "open": "start https://www.dropbox.com/developers/apps"
   },
   "keywords": [
