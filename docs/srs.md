@@ -77,6 +77,7 @@ The target user is someone who uses Dropbox and needs to perform batch file rena
 -   The application shall provide an interactive mode accessible via a CLI flag (`-i` or `--interactive`).
 -   The interactive mode shall prompt the user to enter a search query.
 -   The interactive mode shall prompt the user to enter at least one renaming rule, consisting of a regular expression and a replacement pattern.
+-   The replacement pattern shall support the safe backreference syntax `{{n}}`.
 -   The interactive mode shall allow the user to enter multiple renaming rules.
 -   Before executing the rename, the application shall display a preview of the files that will be renamed, showing the original and new filenames.
 -   The application shall require explicit user confirmation (e.g., "yes/no") before proceeding with the rename operation.

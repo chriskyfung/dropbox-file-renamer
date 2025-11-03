@@ -38,7 +38,7 @@ describe('filterMatches', () => {
       { metadata: { metadata: { name: 'test file.PNG', path_display: '/test file.PNG' } } },
       { metadata: { metadata: { name: 'nochange.png', path_display: '/nochange.png' } } }
     ];
-    const result = filterMatches(items, compiledRenameRules); // Pass compiledRenameRules
+    const result = filterMatches(items, compiledRenameRules);
     expect(result).toEqual([
       { from_path: '/test file.PNG', to_path: '/test-file.png' }
     ]);
@@ -48,8 +48,47 @@ describe('filterMatches', () => {
     const items = [
       { metadata: { metadata: { name: 'nochange.png', path_display: '/nochange.png' } } }
     ];
-    const result = filterMatches(items, compiledRenameRules); // Pass compiledRenameRules
+    const result = filterMatches(items, compiledRenameRules);
     expect(result).toEqual([]);
+  });
+
+  it('should handle backreferences in newString using {{1}} syntax', () => {
+    const items = [
+      { metadata: { metadata: { name: 'file-123.txt', path_display: '/file-123.txt' } } }
+    ];
+    const rules = compileRules([
+      { pattern: 'file-(\\d+)\\.txt', newString: 'document-{{1}}.txt' }
+    ]);
+    const result = filterMatches(items, rules);
+    expect(result).toEqual([
+      { from_path: '/file-123.txt', to_path: '/document-123.txt' }
+    ]);
+  });
+
+  it('should not handle backreferences in newString using $1 syntax', () => {
+    const items = [
+      { metadata: { metadata: { name: 'file-123.txt', path_display: '/file-123.txt' } } }
+    ];
+    const rules = compileRules([
+      { pattern: 'file-(\\d+)\\.txt', newString: 'document-$1.txt' }
+    ]);
+    const result = filterMatches(items, rules);
+    expect(result).toEqual([
+      { from_path: '/file-123.txt', to_path: '/document-$1.txt' }
+    ]);
+  });
+
+  it('should handle backreferences in newString using {{0}} syntax for full match', () => {
+    const items = [
+      { metadata: { metadata: { name: 'file-123.txt', path_display: '/file-123.txt' } } }
+    ];
+    const rules = compileRules([
+      { pattern: 'file-123', newString: '{{0}}-copy' }
+    ]);
+    const result = filterMatches(items, rules);
+    expect(result).toEqual([
+      { from_path: '/file-123.txt', to_path: '/file-123-copy.txt' }
+    ]);
   });
 });
 
