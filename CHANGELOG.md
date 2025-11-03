@@ -14,10 +14,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### ✨ Features
 
 - **rename**: Introduce a new, safer syntax for backreferences (`{{n}}`) in replacement strings to prevent potential string replacement vulnerabilities.
+- **cli**: Add interactive mode for on-the-fly renaming with previews and confirmations.
 
 ### 📝 Documentation
 
 - Update `README.md`, `GEMINI.md`, and other documentation to reflect the new `{{n}}` backreference syntax.
+- Update `README.md` and all SDLC documents in `docs/` directory to reflect the new interactive feature and its usage.
+
+### ✅ Testing
+
+- Add a new test suite (`interactive.test.js`) for interactive workflow coverage.
+- Update existing tests in `index.test.js`.
+
+### ♻️ Refactoring
+
+- Refactor core logic in `index.js` into `runDefaultMode` and `runInteractiveMode` for modularity.
 
 ## [1.4.0] - 2025-11-01
 
