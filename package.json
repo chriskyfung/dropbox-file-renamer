@@ -8,6 +8,7 @@
   },
   "scripts": {
     "start": "node index",
+    "start:rename": "node index rename",
     "test": "jest",
     "test:all": "npm run test:index && npm run test:re2 && npm run test:interactive",
     "test:index": "jest index",
