@@ -21,15 +21,28 @@ The main goal of this project is to help the user batch rename files in their Dr
 
 ## How to Assist the User
 
-1. **Understand the User's Goal:** Ask the user what files they want to rename and what the new naming scheme should be.
-2. **Modify `config.js`:**
-    - Update the `query` variable to match the user's search criteria.
-    - Update the regular expression and replacement string in the `renameRules` array to achieve the desired new filenames.
-3. **Guide the User on Running the Script:**
-    - Remind the user to create the `.env` file with their `ACCESS_TOKEN`.
-    - The script is run using `node index.js` or `npm start`.
+The application now supports two modes: configuration-based and interactive.
 
-- **Provide Examples:** The `examples` directory contains scripts that demonstrate how to use the Dropbox API for searching and listing files. You can refer to these to help the user.
+### Configuration-based Mode
+
+1.  **Understand the User's Goal:** Ask the user what files they want to rename and what the new naming scheme should be.
+2.  **Modify `config.js`:**
+    -   Update the `query` variable to match the user's search criteria.
+    -   Update the regular expression and replacement string in the `renameRules` array to achieve the desired new filenames.
+3.  **Guide the User on Running the Script:**
+    -   Remind the user to create the `.env` file with their `ACCESS_TOKEN`.
+    -   The script is run using `npm start` or `node index.js`.
+
+### Interactive Mode
+
+1.  **Guide the User to Start Interactive Mode:** Instruct the user to run `node index.js rename -i` or `node index.js rename --interactive`.
+2.  **Explain the Prompts:** Inform the user that they will be prompted for the following information directly in the terminal:
+    -   The search query.
+    -   One or more renaming rules (regular expression and replacement string).
+    -   Confirmation to proceed after seeing a preview of the changes.
+3.  **Assist with Regex:** If the user needs help formulating the regular expression for their renaming rule, provide assistance.
+
+-   **Provide Examples:** The `examples` directory contains scripts that demonstrate how to use the Dropbox API for searching and listing files. You can refer to these to help the user.
 
 ## Git Commits
 
