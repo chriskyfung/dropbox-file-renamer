@@ -29,6 +29,34 @@ This example uses [the Official Dropbox API V2 SDK for Javascript](https://githu
 ### Configuration-based Mode
 
 1.  **Configure your rules:** Open `config.js` and modify the `query` and `renameRules` to match your needs.
+
+    > #### Renaming Rules and Backreferences
+    >
+    > The `renameRules` in `config.js` use regular expressions to find and replace parts of a filename.
+    >
+    > To use parts of the original filename in the new name, you can use backreferences. This tool uses a custom `{{n}}` syntax for backreferences:
+    >
+    > *   `{{0}}` refers to the entire matched string.
+    > *   `{{1}}`, `{{2}}`, etc., refer to the 1st, 2nd, etc., capture group from your regular expression.
+    >
+    > **Example:**
+    >
+    > To rename `image-001.jpg` to `photo-01.jpg`:
+    >
+    > ```javascript
+    > // In config.js
+    > renameRules: [
+    >   {
+    >     // Matches "image-001" and captures "001"
+    >     regex: /image-(\d{3})/,
+    >     // Replaces with "photo-" followed by the captured group
+    >     replacement: 'photo-{{1}}'
+    >   }
+    > ]
+    > ```
+    >
+    > **Note:** The standard `$1` syntax is not supported and will be treated as a literal string. This is a security measure to prevent unintended behavior.
+
 2.  **Run the script:**
 
     ```bash

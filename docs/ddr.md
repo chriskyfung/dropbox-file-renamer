@@ -45,7 +45,7 @@ The main script is now structured around `commander.js` and separates logic into
 -   **`runDefaultMode()`**: Contains the logic for the original configuration-based renaming process.
 -   **`runInteractiveMode()`**: Manages the interactive session, handling all user prompts, previews, and confirmation steps.
 -   **`processResponse(dbx, response, compiledRenameRules)`**: Handles pagination of search results for both modes.
--   **`filterMatches(items, compiledRenameRules)`**: Applies renaming rules to search results.
+-   **`filterMatches(items, compiledRenameRules)`**: Applies renaming rules to search results. It uses a custom replacer function to safely handle backreferences in replacement strings. The supported syntax is `{{n}}` for capture groups, which prevents vulnerabilities associated with the standard `$` syntax.
 -   **`renameFiles(dbx, itemsToRename)`**: Calls the `filesMoveBatchV2` endpoint and monitors the job.
 -   **`checkProgress(dbx, jobId, items)`**: Polls the `filesMoveBatchCheckV2` endpoint to check the status of the renaming job.
 
