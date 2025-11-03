@@ -193,11 +193,12 @@ function filterMatches(items, compiledRenameRules) {
       let newName = name;
       compiledRenameRules.forEach(rule => {
         try {
+          const backRefRegex = /\{\{(\d+)\}\}/g;
           newName = newName.replace(rule.pattern, (...args) => {
             const match = args[0];
             const captures = args.slice(1, args.length - 2);
             let result = rule.newString;
-            return result.replace(/\{\{(\d+)\}\}/g, (_, n) => {
+            return result.replace(backRefRegex, (_, n) => {
               const index = parseInt(n, 10);
               if (index === 0) {
                 return match;
