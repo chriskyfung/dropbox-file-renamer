@@ -41,7 +41,7 @@ This example uses [the Official Dropbox API V2 SDK for Javascript](https://githu
     >
     > **Example:**
     >
-> To rename `image-001.jpg` to `photo-001.jpg`:
+    > To rename `image-001.jpg` to `photo-001.jpg`:
     >
     > ```javascript
     > // In config.js
