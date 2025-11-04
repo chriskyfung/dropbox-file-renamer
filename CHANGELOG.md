@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] - 2025-11-04
+
+### ✨ Features
+
+- **cli**: Add `--config` option to allow using a custom configuration file.
+
+### ✅ Testing
+
+- Add new test suite (`runDefaultMode.test.js`) to cover default mode execution with both default and custom configurations.
+
+### ♻️ Refactoring
+
+- **core**: Replace hard-coded default config file name with a `DEFAULT_CONFIG_FILE` constant.
+- **core**: Move `require` of config file inside `try...catch` block to handle file not found errors gracefully.
+
 ## [2.0.0] - 2025-11-03
 
 ### ⚠ BREAKING CHANGES
