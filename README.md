@@ -28,7 +28,11 @@ This example uses [the Official Dropbox API V2 SDK for Javascript](https://githu
 
 ### Configuration-based Mode
 
-1.  **Configure your rules:** Open `config.js` and modify the `query` and `renameRules` to match your needs.
+This mode uses a configuration file to define the search query and renaming rules.
+
+1.  **Configure your rules:**
+    *   For basic usage, open the default `config.js` file and modify the `query` and `renameRules` to match your needs.
+    *   Alternatively, you can create your own configuration file and use the `--config` option to specify its path. This is useful for managing multiple renaming tasks.
 
     > #### Renaming Rules and Backreferences
     >
@@ -58,10 +62,14 @@ This example uses [the Official Dropbox API V2 SDK for Javascript](https://githu
     > **Note:** The standard `$1` syntax is not supported and will be treated as a literal string. This is a security measure to prevent unintended behavior.
 
 2.  **Run the script:**
-
-    ```bash
-    npm start
-    ```
+    *   To use the default `config.js`:
+        ```bash
+        npm start
+        ```
+    *   To use a custom configuration file:
+        ```bash
+        node index.js rename --config /path/to/your/config.js
+        ```
 
 ### Interactive Mode
 

@@ -26,12 +26,17 @@ The application now supports two modes: configuration-based and interactive.
 ### Configuration-based Mode
 
 1.  **Understand the User's Goal:** Ask the user what files they want to rename and what the new naming scheme should be.
-2.  **Modify `config.js`:**
-    -   Update the `query` variable to match the user's search criteria.
-    -   Update the regular expression and replacement string in the `renameRules` array to achieve the desired new filenames. When assisting with `renameRules`, be aware of the custom backreference syntax. Use `{{n}}` to refer to the nth capture group (e.g., `{{1}}`). `{{0}}` refers to the entire match. The standard `$n` syntax is not supported.
+2.  **Modify the Configuration:**
+    -   For a single, one-off task, it's easiest to modify the default `config.js` file.
+    -   If the user has multiple renaming tasks, suggest creating a separate configuration file (e.g., `my-task-config.js`) and using the `--config` option. This keeps their different configurations organized.
+    -   In the chosen config file, update the `query` and `renameRules` as needed.
 3.  **Guide the User on Running the Script:**
     -   Remind the user to create the `.env` file with their `ACCESS_TOKEN`.
-    -   The script is run using `npm start` or `node index.js`.
+    -   To use the default `config.js`, the user can run `npm start`.
+    -   To use a custom config file, instruct the user to run:
+        ```shell
+        node index.js rename --config /path/to/their/config.js
+        ```
 
 ### Interactive Mode
 

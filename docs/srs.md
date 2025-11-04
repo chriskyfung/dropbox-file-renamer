@@ -28,8 +28,9 @@ The Dropbox File Renamer is a standalone Node.js application that interacts with
 ### 2.2. Product Functions
 
 -   **Configuration-based Mode**:
-    -   Search for files in a Dropbox account using a query specified in `config.js`.
-    -   Rename files based on regular expression rules defined in `config.js`.
+    -   Search for files in a Dropbox account using a query specified in a configuration file (`config.js` by default).
+    -   Allow specifying a custom configuration file via a `--config` command-line option.
+    -   Rename files based on regular expression rules defined in the configuration file.
 -   **Interactive Mode**:
     -   Prompt the user for a search query.
     -   Prompt the user for one or more renaming rules.
@@ -68,7 +69,9 @@ The target user is someone who uses Dropbox and needs to perform batch file rena
 
 #### 3.1.2. File Renaming (Configuration-based)
 
--   The application shall be able to rename files based on a set of regular expression rules defined in `config.js`.
+-   The application shall be able to rename files based on a set of regular expression rules defined in a configuration file.
+-   The application shall use `config.js` by default.
+-   The application shall allow the user to specify a custom configuration file using the `--config` command-line option.
 -   The renaming rules shall be applied to the search results.
 -   The application shall provide feedback to the user on the success or failure of each renaming operation.
 
