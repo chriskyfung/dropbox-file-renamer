@@ -10,10 +10,11 @@
     "start": "node index",
     "start:rename": "node index rename",
     "test": "jest",
-    "test:all": "npm run test:index && npm run test:re2 && npm run test:interactive",
+    "test:all": "npm run test:index && npm run test:defaultMode && npm run test:interactive && npm run test:re2",
     "test:index": "jest index",
+    "test:defaultMode": "jest defaultMode",
+    "test:interactive": "jest interactive",
     "test:re2": "jest re2",
-    "test:interactive": "jest interactive.test.js",
     "open": "start https://www.dropbox.com/developers/apps"
   },
   "keywords": [
