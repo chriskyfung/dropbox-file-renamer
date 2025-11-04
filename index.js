@@ -7,6 +7,8 @@ const { Dropbox } = require('dropbox');
 const RE2 = require('re2');
 const { Command } = require('commander');
 
+const DEFAULT_CONFIG_FILE = './config.js';
+
 const program = new Command();
 
 // Main
@@ -24,11 +26,12 @@ async function main() {
     .command('rename')
     .description('Rename files based on rules from config.js or interactive prompts.')
     .option('-i, --interactive', 'Run in interactive mode.')
+    .option('-c, --config <path>', 'Path to a custom config file.')
     .action(async (options) => {
       if (options.interactive) {
         await runInteractiveMode();
       } else {
-        await runDefaultMode();
+        await runDefaultMode(options);
       }
     });
 
@@ -44,12 +47,13 @@ if (require.main === module) {
  * It reads search queries and rename rules from the config file, searches Dropbox, and processes the files.
  * @returns {Promise<void>} A Promise that resolves when the default mode execution is complete.
  */
-async function runDefaultMode() {
-  console.log('Running in default mode using config.js...');
-  const { query, searchOptions, renameRules } = require('./config');
-  const compiledRenameRules = compileRules(renameRules);
+async function runDefaultMode(options = {}) {
+  const configPath = options.config ? path.resolve(options.config) : DEFAULT_CONFIG_FILE;
+  console.log(`Running in default mode using ${options.config || DEFAULT_CONFIG_FILE}...`);
   
   try {
+    const { query, searchOptions, renameRules } = require(configPath);
+    const compiledRenameRules = compileRules(renameRules);
     const dbx = new Dropbox({accessToken: process.env.ACCESS_TOKEN});
     let response = await dbx.filesSearchV2({ query, 'options': searchOptions });
     await processResponse(dbx, response, compiledRenameRules, false);
