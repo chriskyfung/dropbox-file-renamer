@@ -8,20 +8,20 @@ This document describes the design and development of the Dropbox File Renamer, 
 
 The application operates as a client that interacts with the external Dropbox API. It runs as a command-line tool and supports two modes of operation:
 
--   **Configuration-based Mode**: Reads a local configuration file (`config.js`) to perform batch renaming.
+-   **Configuration-based Mode**: Reads a local configuration file (`config.js` by default, or a custom file via the `--config` option) to perform batch renaming.
 -   **Interactive Mode**: Guides the user through a series of prompts to define search and rename parameters on the fly.
 
 ### 2.1. Components
 
 -   **`index.js`**: The main entry point of the application. It uses `commander.js` to parse command-line arguments and routes to the appropriate mode (default or interactive).
--   **`config.js`**: The configuration file for the configuration-based mode.
+-   **`config.js`**: The default configuration file for the configuration-based mode.
 -   **`.env`**: Stores the user's Dropbox API access token.
 -   **`package.json`**: Defines project dependencies, including `dropbox`, `dotenv`, `commander`, and `prompt`.
 
 ### 2.2. Data Flow
 
 #### Configuration-based Mode
-1.  The application starts and reads the configuration from `config.js`.
+1.  The application starts and reads the configuration from `config.js` or a custom file specified with the `--config` option.
 2.  It reads the Dropbox API access token from the `.env` file.
 3.  It uses the configuration to search for files via the Dropbox API.
 4.  The application processes the results, applies renaming rules, and renames the files.
