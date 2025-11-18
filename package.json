@@ -37,5 +37,8 @@
   },
   "devDependencies": {
     "jest": "^30.2.0"
+  },
+  "overrides": {
+    "glob": "^11.1.0"
   }
 }
