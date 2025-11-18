@@ -45,7 +45,7 @@ describe('Interactive Rename Command', () => {
     beforeEach(() => {
         program = new Command();
         program
-            .version('2.0.0')
+            .version('2.1.0')
             .description('A CLI tool to batch rename files in Dropbox.')
             .command('rename')
             .description('Rename files based on rules from config.js or interactive prompts.')

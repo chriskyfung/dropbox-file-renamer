@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.1.0] - 2025-11-04
+## [2.1.0] - 2025-11-18
 
 ### ✨ Features
 
@@ -19,6 +19,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **core**: Replace hard-coded default config file name with a `DEFAULT_CONFIG_FILE` constant.
 - **core**: Move `require` of config file inside `try...catch` block to handle file not found errors gracefully.
+
+### ⬆️ Dependencies
+
+- Bump `re2` in the production-dependencies group (#17)
+- Bump `js-yaml` from 3.14.1 to 3.14.2 (#18)
+- Add `glob` package version override (#19)
 
 ## [2.0.0] - 2025-11-03
 
