@@ -25,7 +25,7 @@
   ],
   "author": "Chris K.Y. Fung <@chriskyfung> (<https://chriskyfung.github.io>)",
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=20.17.0"
   },
   "license": "GPL-3.0-or-later",
   "dependencies": {
