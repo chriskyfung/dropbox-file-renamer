@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.1] - 2026-04-07
+
+### ⬆️ Dependencies
+
+- Bump `lodash` from 4.17.21 to 4.18.1 (#24, #38)
+- Bump `tar` from 7.5.2 to 7.5.11 (#22, #23, #26, #32, #33)
+- Bump `re2` in the production-dependencies group (#21, #25, #29)
+- Bump `dotenv` in the production-dependencies group (#27, #28)
+- Bump `minimatch` and `brace-expansion` (#30, #31, #36)
+- Bump `jest` in the development-dependencies group (#34)
+- Bump `picomatch` from 2.3.1 to 2.3.2 (#35)
+- Bump `word-wrap` and `js-yaml` in the production-dependencies group (#29, #37)
+
+### ⚙️ Continuous Integration
+
+- Bump `actions/checkout` from 5 to 6 (#20)
+- Bump minimum Node.js version to 20.17.0 (#39)
+- Add permissions block following security best practice (#40)
+
 ## [2.1.0] - 2025-11-18
 
 ### ✨ Features
