@@ -36,7 +36,7 @@
     "re2": "^1.24.0"
   },
   "devDependencies": {
-    "jest": "^30.3.0"
+    "jest": "^30.4.2"
   },
   "overrides": {
     "glob": "^11.1.0"
