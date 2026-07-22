@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+## [2.1.2] - 2026-07-22
+
+### ⬆️ Dependencies
+
+- Update node engine requirements for compatibility (#56)
+- Bump `dotenv` from 17.4.1 to 17.4.2 (#41)
+- Bump `dropbox` from 10.34.0 to 10.37.1 (#53)
+- Bump `form-data` from 3.0.4 to 3.0.5 (#47)
+- Bump `ip-address` from 10.1.0 to 10.2.0 (#42)
+- Bump `jest` from 30.3.0 to 30.4.2 (#43)
+- Bump `re2` from 1.24.0 to 1.26.0 (#44, #51, #52)
+- Bump `tar` from 7.5.15 to 7.5.21 (#48, #55)
+- Bump `undici` from 6.25.0 to 6.27.0 (#49)
+
+### ⚙️ Continuous Integration
+
+- Bump `actions/checkout` from 6 to 7 (#50)
+- Bump `actions/setup-node` from 6 to 7 (#54)
+
 ## [2.1.1] - 2026-04-07
 
 ### ⬆️ Dependencies

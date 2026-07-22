@@ -21,7 +21,7 @@ const program = new Command();
 async function main() {
 
   program
-    .version('')
+    .version('2.1.2')
     .description('A CLI tool to batch rename files in Dropbox.')
     .command('rename')
     .description('Rename files based on rules from config.js or interactive prompts.')
