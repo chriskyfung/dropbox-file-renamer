@@ -13,7 +13,7 @@ This example uses [the Official Dropbox API V2 SDK for Javascript](https://githu
    ```shell
    git clone https://github.com/chriskyfung/dropbox-file-renamer.git
    cd dropbox-file-renamer
-   npm install
+   pnpm install
    ```
 
 4. Create a `.env` file in your project directory
@@ -64,7 +64,7 @@ This mode uses a configuration file to define the search query and renaming rule
 2.  **Run the script:**
     *   To use the default `config.js`:
         ```bash
-        npm start
+        pnpm start
         ```
     *   To use a custom configuration file:
         ```bash
@@ -92,7 +92,7 @@ For a more guided experience without editing files, use the interactive mode.
 Run the test script using
 
 ```shell
-npm test
+pnpm test
 ```
 
 ## Examples

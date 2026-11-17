@@ -32,7 +32,7 @@ The application now supports two modes: configuration-based and interactive.
     -   In the chosen config file, update the `query` and `renameRules` as needed.
 3.  **Guide the User on Running the Script:**
     -   Remind the user to create the `.env` file with their `ACCESS_TOKEN`.
-    -   To use the default `config.js`, the user can run `npm start`.
+    -   To use the default `config.js`, the user can run `pnpm start`.
     -   To use a custom config file, instruct the user to run:
         ```shell
         node index.js rename --config /path/to/their/config.js
