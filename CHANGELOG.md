@@ -5,6 +5,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.4] - 2026-11-17
+
+### ⬆️ Dependencies
+
+- **dropbox**: Bump from 10.44.0 to 10.45.0 (#63), 10.46.0 (#64), and 10.66.0 (#75)
+- **dotenv**: Bump from 17.4.2 to 18.0.9 (#66, #67, #70, #71, #72, #73)
+- **undici**: Bump from 8.10.0 to 8.12.3 (#69, #74)
+- **re2**: Bump from 1.26.1 to 1.27.1 (#70, #76)
+- **jest**: Bump in dev-dependencies from 30.4.2 to 30.5.2 (#65, #68)
+
+### 🔧 Chore
+
+- **package.json, package-lock.json, pnpm-lock.yaml**: Migrate project tooling from npm to pnpm.
+- **pnpm-workspace.yaml**: Enable re2 support in dependencies.
+
+### 📝 Documentation
+
+- **README.md**: Switch from npm to pnpm.
+- **GEMINI.md**: Switch from npm to pnpm.
+
+### ⚙️ Continuous Integration
+
+- **.github/workflows/ci.yml**: Migrate CI workflow from npm to pnpm.
+
 ## [2.1.3] - 2026-08-11
 
 ### 🔧 Chore
