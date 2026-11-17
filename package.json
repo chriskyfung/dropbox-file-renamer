@@ -1,6 +1,6 @@
 {
   "name": "dropbox-file-renamer",
-  "version": "2.1.3",
+  "version": "2.1.4",
   "description": "Batch rename multiple Dropbox files using Dropbox API V2",
   "main": "index.js",
   "bin": {
@@ -10,7 +10,7 @@
     "start": "node index",
     "start:rename": "node index rename",
     "test": "jest",
-    "test:all": "npm run test:index && npm run test:defaultMode && npm run test:interactive && npm run test:re2",
+    "test:all": "pnpm run test:index && pnpm run test:defaultMode && pnpm run test:interactive && pnpm run test:re2",
     "test:index": "jest index",
     "test:defaultMode": "jest defaultMode",
     "test:interactive": "jest interactive",
@@ -44,5 +44,6 @@
   "allowScripts": {
     "re2@1.26.1": true,
     "unrs-resolver@1.11.1": true
-  }
+  },
+  "packageManager": "pnpm@12.21.0+sha512.66fd8278ee28935ce951792d34367ff3af5c432a2756445823029533835b8da529bbe0be5130afd56ed0713fb8789e47bad82d93bd5ae2fe54b15562d6276ef0"
 }
